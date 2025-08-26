@@ -1,12 +1,12 @@
 import java.util.List;
 
-public class Library_Service {
+public class LibraryService {
 
     // This is the Key: The service depends on the Interface, not the specific class. We are holding a reference to the "Contract"
-    private final Book_Repository bookRepository;
+    private final BookRepository bookRepository;
 
     // The constructor. This is how we "inject" the specific implementation we want to use. This is called Dependency Injection, and is a core concept for modular design.
-    public Library_Service(Book_Repository bookRepository) {
+    public LibraryService(BookRepository bookRepository) {
 
         // We are given a Book_Repository. It could be Book_Repository_ArrayList or Book_Repository_SQL. The service doesn't know or care.
         this.bookRepository = bookRepository;

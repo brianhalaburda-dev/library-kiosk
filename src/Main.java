@@ -4,10 +4,10 @@ public class Main {
     public static void main(String[]args) {
 
         // 1. Choose our "Black Box" Implementation. We are specifically choosing the ArrayList version for now. This is the only place in the code where we mention Book_Repository_ArrayList.
-        Book_Repository myChosenRepository = new Book_Repository_ArrayList();
+        BookRepository myChosenRepository = new BookRepository_ArrayList();
 
         // 2. Create the service and give it the chosen repository.
-        Library_Service libraryService = new Library_Service(myChosenRepository);
+        LibraryService libraryService = new LibraryService(myChosenRepository);
 
         // 3. Setup the scanner for user input.
         Scanner scanner = new Scanner(System.in);

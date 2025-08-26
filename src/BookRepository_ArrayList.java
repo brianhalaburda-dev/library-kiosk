@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // The name clearly communicates it's purpose.
-public class Book_Repository_ArrayList implements Book_Repository {
+public class BookRepository_ArrayList implements BookRepository {
     // This class implements the Book_Repository contract. IntelliJ will show an error if we don't fulfill the promise.
     private final List<Book> bookDatabase = new ArrayList<>();
     // This will be the "Fake" database, same ArrayList that we had in Main.
