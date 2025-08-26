@@ -3,13 +3,9 @@ import java.util.Scanner; // Import the Scanner class from the Java 'utils' libr
 public class Main {
     public static void main(String[]args) {
 
-        // 1. Choose our "Black Box" Implementation. We are specifically choosing the ArrayList version for now. This is the only place in the code where we mention Book_Repository_ArrayList.
-        BookRepository myChosenRepository = new BookRepository_ArrayList();
+        LibraryService libraryService = AppConfig.getLibraryService();
 
-        // 2. Create the service and give it the chosen repository.
-        LibraryService libraryService = new LibraryService(myChosenRepository);
-
-        // 3. Setup the scanner for user input.
+        // Setup the scanner for user input.
         Scanner scanner = new Scanner(System.in);
 
         // The main program loop remains largely the same, but now it's much simpler.
