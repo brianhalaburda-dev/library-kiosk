@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book_Repository_ArrayList implements Book_Repository { // This class implements the Book_Repository contract. IntelliJ will show an error if we don't fulfill the promise.
-    private final List<Book> bookDatabase = new ArrayList<>(); // This will be the "Fake" database, same ArrayList that we had in Main.
+// The name clearly communicates it's purpose.
+public class Book_Repository_ArrayList implements Book_Repository {
+    // This class implements the Book_Repository contract. IntelliJ will show an error if we don't fulfill the promise.
+    private final List<Book> bookDatabase = new ArrayList<>();
+    // This will be the "Fake" database, same ArrayList that we had in Main.
 
     @Override // This annotation says: I'm implementing the method from the interface.
     public void save(Book book) {
-        bookDatabase.add(Book); // This implementation is simple, just add to the list.
+        bookDatabase.add(book); // This implementation is simple, just add to the list.
     }
 
     @Override
