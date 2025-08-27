@@ -1,5 +1,12 @@
-/* This implementation requires a PostgresSQL database created as follows.
+/* This implementation requires a PostgresSQL database.
+Login credentials are read from a configuration file named "application.properties".
 
+That file contains:
+db.url=jdbc:postgresql://localhost:5432/library_kiosk
+db.user=XXXX -- replace with db user
+db.password=XXXX  --- replace with db password
+
+The PostgresSQL database is created as follows.
 -- 1. Connect to your PostgresSQL server and create a database for the library
         CREATE DATABASE library_kiosk;
 
@@ -20,12 +27,40 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// New imports to read from config file.
+import java.util.Properties;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class BookRepository_PostgreSQL implements BookRepository {
 
-    // Database connection details - These would eventually come from a config file.
-    private final String url = "jdbc:postgresql://localhost:5432/library_kiosk";
-    private final String user = "mac";
-    private final String password = "qwert";
+    // We will load this from the file now.
+    private final String url;
+    private final String user;
+    private final String password;
+
+    // The constructor will load the configuration.
+    public BookRepository_PostgreSQL() {
+        Properties props = new Properties();
+
+        // Try to load the properties file.
+        try (FileInputStream input = new FileInputStream("application.properties")) {
+
+            props.load(input); // Load the key-value pairs from the file.
+
+            // Read the specific values we need.
+            this.url = props.getProperty("db.url");
+            this.user = props.getProperty("db.user");
+            this.password = props.getProperty("db.password");
+        } catch (IOException e) {
+
+            // If the file can't be loaded, print a helpful error and crash. This is better than silently failing with wrong credentials.
+            System.err.println("ERROR: Could not load database configuration file 'application.properties'");
+            System.err.println("Please make sure the file exists and is in the correct location.");
+            e.printStackTrace();
+            throw new RuntimeException("Failed to load configuration", e);
+        }
+    }
 
     // Helper method to get a connection to the database.
     private Connection getConnection() throws SQLException {
@@ -100,6 +135,7 @@ public class BookRepository_PostgreSQL implements BookRepository {
                 );
             }
             rs.close();
+
         } catch (SQLException e) {
             System.out.println("Error finding book by ISBN: " + e.getMessage());
         }
