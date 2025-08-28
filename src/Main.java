@@ -2,7 +2,9 @@ import java.util.Scanner; // Import the Scanner class from the Java 'utils' libr
 
 public class Main {
     public static void main(String[]args) {
-        LibraryService libraryService = AppConfig.getLibraryService();
+
+        BookManagerService bookManagerService = AppConfig.getBookManagerService();
+        MemberManagerService memberManagerService = AppConfig.getMemberManagerService();
         // Set up the scanner for user input.
         Scanner scanner = new Scanner(System.in);
 
@@ -40,12 +42,12 @@ public class Main {
                 String isbn = scanner.nextLine();
 
                 // All the logic is inside the service. Just call the method.
-                libraryService.addNewBook(title, author, isbn);
+                bookManagerService.addNewBook(title, author, isbn);
 
             } else if (choice == 2) {
                 // List all books.
                 // Delegate.
-                libraryService.listAllBooks();
+                bookManagerService.listAllBooks();
 
             } else if (choice==3) {
                 /*
@@ -54,7 +56,7 @@ public class Main {
                 */
                 System.out.println("Enter the ISBN of the book to delete: ");
                 String isbn = scanner.nextLine();
-                libraryService.deleteBookByIsbn(isbn);
+                bookManagerService.deleteBookByIsbn(isbn);
 
             } else if (choice==4) {
                 // Add member.
@@ -63,17 +65,17 @@ public class Main {
                 String id = scanner.nextLine();
                 System.out.println("Enter member name: ");
                 String name = scanner.nextLine();
-                libraryService.addNewMember(id, name);
+                memberManagerService.addNewMember(id, name);
 
             } else if (choice==5) {
                 // List members.
                 // Delegate.
-                libraryService.listAllMembers();
+                memberManagerService.listAllMembers();
             } else if (choice==6) {
                 // Delete member.
                 System.out.println("Enter the ID of the member to delete: ");
                 String id = scanner.nextLine();
-                libraryService.deleteMemberById(id);
+                memberManagerService.deleteMemberById(id);
 
             } else {
                 System.out.println("Invalid choice, please try again.");

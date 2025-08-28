@@ -10,11 +10,15 @@ public class AppConfig {
     }
 
     // We also create the service here, already injected with the chosen repository.
-    public static LibraryService getLibraryService() {
+    public static BookManagerService getBookManagerService() {
         BookRepository bookRepository = getBookRepository();
-        MemberRepository memberRepository = getMemberRepository();
-        return new LibraryService(bookRepository, memberRepository);
+        return new BookManagerService(bookRepository);
+    }
 
+    // We also create the service here, already injected with the chosen repository.
+    public static MemberManagerService getMemberManagerService() {
+        MemberRepository memberRepository = getMemberRepository();
+        return new MemberManagerService(memberRepository);
 
     }
 
