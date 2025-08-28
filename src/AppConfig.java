@@ -5,9 +5,17 @@ public class AppConfig {
         return new BookRepository_PostgreSQL();
     }
 
+    public static MemberRepository getMemberRepository() {
+        return new MemberRepository_ArrayList();
+    }
+
     // We also create the service here, already injected with the chosen repository.
     public static LibraryService getLibraryService() {
-        BookRepository repository = getBookRepository();
-        return new LibraryService(repository);
+        BookRepository bookRepository = getBookRepository();
+        MemberRepository memberRepository = getMemberRepository();
+        return new LibraryService(bookRepository, memberRepository);
+
+
     }
+
 }

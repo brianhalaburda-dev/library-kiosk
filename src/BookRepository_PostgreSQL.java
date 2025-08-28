@@ -22,7 +22,6 @@ The PostgresSQL database is created as follows.
         );
  */
 
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +116,7 @@ public class BookRepository_PostgreSQL implements BookRepository {
         }
         return books;
     }
+
     @Override
     public Book findByIsbn(String isbn) {
         String sql = "SELECT * FROM books WHERE isbn = ?";
@@ -140,5 +140,21 @@ public class BookRepository_PostgreSQL implements BookRepository {
             System.out.println("Error finding book by ISBN: " + e.getMessage());
         }
         return book;
+    }
+
+    @Override
+    public boolean deleteByIsbn(String isbn) {
+        String sql = "DELETE FROM books WHERE isbn = ?";
+        try (Connection conn = getConnection();
+
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, isbn);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error deleting book: " + e.getMessage());
+            return false;
+        }
     }
 }

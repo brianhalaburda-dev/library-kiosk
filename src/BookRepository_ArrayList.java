@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 // The name clearly communicates it's purpose.
@@ -25,5 +26,20 @@ public class BookRepository_ArrayList implements BookRepository {
             }
         }
         return null; // Return null if no book was found.
+    }
+
+    @Override
+    public boolean deleteByIsbn(String isbn) {
+
+        // Use Iterator to avoid ConcurrentModificationException
+        Iterator<Book> iterator = bookDatabase.iterator();
+        while (iterator.hasNext()) {
+            Book book = iterator.next();
+            if (book.getIsbn().equals(isbn)) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false;
     }
 }
